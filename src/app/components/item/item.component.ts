@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges, EventEmitter, OnDestroy } from '@angular/core';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Item } from 'src/app/interfaces/iItem';
 
@@ -7,9 +7,10 @@ import { Item } from 'src/app/interfaces/iItem';
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
-export class ItemComponent implements OnInit, OnChanges {
+export class ItemComponent implements OnInit, OnChanges, OnDestroy {
   @Input() item!: Item;
-  @Output() emitindoItemParaEditar = new EventEmitter()
+  @Output() emitindoItemParaEditar = new EventEmitter();
+  @Output() emitindoIdParaDeletar = new EventEmitter();
 
 
   faPen = faPen;
@@ -27,5 +28,14 @@ export class ItemComponent implements OnInit, OnChanges {
 
   editarItem(){
     this.emitindoItemParaEditar.emit(this.item);
+  }
+  
+  deletarItem(){
+    console.log('can u lock the fuck in?')
+    this.emitindoIdParaDeletar.emit(this.item.id)
+  }
+
+  ngOnDestroy(){
+    console.log('u lock the fuck in')
   }
 }
